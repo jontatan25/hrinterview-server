@@ -1,6 +1,5 @@
 module Api  
   module V1
-
     class CandidatesController < ApplicationController
       before_action :authorize_access_request!, except: [:show, :index]
       before_action :set_candidate, only: [ :show, :update, :destroy ]
@@ -8,7 +7,6 @@ module Api
       # GET /candidates
       def index
         @candidates = Candidate.all
-
         render json: @candidates
       end
 
@@ -20,7 +18,6 @@ module Api
       # POST /candidates
       def create
         @candidate = Candidate.new(candidate_params)
-
         if @candidate.save
           render json: @candidate, status: :created, location: @candidate
         else
@@ -43,14 +40,16 @@ module Api
       end
 
       private
-        # Use callbacks to share common setup or constraints between actions.
-        def set_candidate
-          @candidate = Candidate.find(params[:id])
-        end
 
-        # Only allow a list of trusted parameters through.
-        def candidate_params
-          params.require(:candidate).permit(:name)
-        end
+      # Use callbacks to share common setup or constraints between actions.
+      def set_candidate
+        @candidate = Candidate.find(params[:id])
+      end
+
+      # Only allow a list of trusted parameters through.
+      def candidate_params
+        params.require(:candidate).permit(:name)
+      end
     end
+  end
 end
