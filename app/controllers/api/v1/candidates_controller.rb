@@ -2,7 +2,7 @@ module Api
   module V1
     class CandidatesController < ApplicationController
       before_action :authorize_access_request!, except: [:show, :index]
-      before_action :set_candidate, only: [ :show, :update, :destroy ]
+      before_action :set_candidate, only: [:show, :update, :destroy ]
 
       # GET /candidates
       def index
@@ -17,9 +17,9 @@ module Api
 
       # POST /candidates
       def create
-        @candidate = Candidate.new(candidate_params)
+        @candidate = current_user.candidates.build(candidate_params)
         if @candidate.save
-          render json: @candidate, status: :created, location: @candidate
+          render json: @candidate, status: :created
         else
           render json: @candidate.errors, status: :unprocessable_entity
         end
