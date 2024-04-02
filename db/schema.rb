@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_28_212536) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_02_001814) do
   create_table "candidates", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", default: 1, null: false
     t.index ["user_id"], name: "index_candidates_on_user_id"
   end
 
@@ -26,7 +26,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_28_212536) do
     t.integer "users_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["candidate_id"], name: "index_experiences_on_candidate_id"
+    t.index ["user_id"], name: "index_experiences_on_user_id"
     t.index ["users_id"], name: "index_experiences_on_users_id"
   end
 
@@ -39,5 +41,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_28_212536) do
 
   add_foreign_key "candidates", "users"
   add_foreign_key "experiences", "candidates"
+  add_foreign_key "experiences", "users"
   add_foreign_key "experiences", "users", column: "users_id"
 end
