@@ -48,7 +48,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def candidate_params
-        params.require(:candidate).permit(:name)
+        params.require(:candidate).permit(:name, :email, :phone)
       end
     end
   end
